@@ -46,4 +46,15 @@ if not files:
 pd.concat()   # concatenate dataframes or series
 pd.read_csv() # read in csv files as dataframes, has a `.fillna()` method to deal with N/A entries
 df.head()
+df.describe()
+plt.plot
+plt.imshow
+plt.xlabel
+plt.ylabel
+cbar=plt.colorbar()
+cbar.set_label()
+
+# to iterate through rows and columns of a dataframe:
+df.iterrows()  # rows
+df.iteritems() # columns
 ```
