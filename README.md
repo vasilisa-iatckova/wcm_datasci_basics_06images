@@ -132,6 +132,7 @@ def realign_data(in_data, align = "max"):
         d - new dataframe with realigned data
         shifts - how each entry was shifted
     """
+    # Create a placeholder output dataframe the same size as input, replace the 0's later with realigned data
     x, y = in_data.shape
     d = pd.DataFrame(0, index=np.arange(x), columns = np.arange(y))
     shifts = np.zeros(y)
@@ -158,8 +159,12 @@ def realign_data(in_data, align = "max"):
 
 pd.concat()   # concatenate dataframes or series
 pd.read_csv() # read in csv files as dataframes, has a `.fillna()` method to deal with N/A entries
+
+# dataframe methods:
 df.head()
 df.describe()
+
+# plotting:
 plt.plot
 plt.imshow
 plt.xlabel
