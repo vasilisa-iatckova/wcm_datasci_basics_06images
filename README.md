@@ -67,6 +67,12 @@ This directory structure takes advantage of Python's "name spaces" with empty `_
 
 All functions in these test files should be named with the `test_` prefix, indicating which function is being tested. For example `def test_utility_function()` would be testing the function `utility_function()`. The tests will be run automatically by simply calling `pytest` in your terminal.
 
+To integrate your `pytest` unit tests with GitHub, so that every commit you push to github is automatically tested with GitHub Actions, see this guide here: https://docs.github.com/en/actions/guides/building-and-testing-python
+
+I've already prepared the Github actions workflow file in `.github/workflows/main.yml`. It was created based on the template provided by the guide linked above.
+
+With these actions setup, every push or pull-request made to the specified branch will be automatically tested.
+
 ### Useful Python functions and commands used in today's class:
 
 ```python
@@ -87,6 +93,68 @@ files = natsort.natsorted(glob.glob(pattern))
 # If the files are not found, raise an exception:
 if not files:
     raise FileNotFoundError('Pattern could not detect file(s)')
+
+# Function to create a list of your data file names:
+def get_files(pattern):
+    """
+    Extracts file in alphanumerical order that match the provided pattern
+    """
+    if isinstance(pattern, list):
+        pattern = os.path.join(*pattern)
+        
+    files = natsort.natsorted(glob.glob(pattern))
+    if not files:
+        raise FileNotFoundError('Pattern could not detect file(s)')
+        
+    return files
+
+# function to find the middle index of your dataframe (csv file data):
+# Find middle function:
+def find_middle(in_column):
+    """
+    Find the middle index of input data column/array
+    """
+    # length of the input, divide by 2 to find the middle point
+    middle = float(len(in_column))/2
+    # round down with `floor` in case your middle point isn't divisible by 2 (odd length)
+    return int(np.floor(middle))
+
+# realign data function:
+# realign:
+def realign_data(in_data, align = "max"):
+    """
+    Center data around maximum or center of shortest column, pad with 0's 
+    Args:
+        in_data: array of input data
+        align (str): "max" or "center", max will provide shifts to align maximum of input  data, whereas "center" will shift to middle index.
+    
+    Returns:
+        d - new dataframe with realigned data
+        shifts - how each entry was shifted
+    """
+    x, y = in_data.shape
+    d = pd.DataFrame(0, index=np.arange(x), columns = np.arange(y))
+    shifts = np.zeros(y)
+    
+    # Find longest length sample and find it's peak/midpoint
+    ind_longest = np.argmin((in_data == 0).astype(int).sum(axis=0).values)
+    peak_longest = np.argmax(in_data.loc[:, ind_longest].values)
+    # use your find_middle function here to find the center point for the assignment
+    mid_longest = find_middle(in_data.index[in_data[ind_longest]!=0].values)
+    
+    # arrange the rest of the data's peaks into the new dataframe lining up to longest peak or longest midpoint
+    for column in in_data:
+        if align == "max":
+            peak = np.argmax(in_data[column].values)
+            pdiff = peak_longest - peak
+            d[column] = in_data[column].shift(periods=pdiff, fill_value=0)
+            # check shifted max location of input is same as reference peak
+            assert np.argmax(d[column]) == peak_longest
+            shifts[column] = pdiff
+        elif align == "center":
+            # Write the alignment code here, replacing peak with the center that you found (mid_longest). 
+    
+        return d, shifts
 
 pd.concat()   # concatenate dataframes or series
 pd.read_csv() # read in csv files as dataframes, has a `.fillna()` method to deal with N/A entries
