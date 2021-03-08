@@ -1,4 +1,4 @@
-name: testing_py3 
+name: pytest3 
 channels:
   - conda-forge
   - defaults

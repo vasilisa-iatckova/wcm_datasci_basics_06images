@@ -1,4 +1,4 @@
 Assignment 6
 ---
 
-Clone this week's repository and follow the instructions in `assignment/process_csv.ipynb` to complete the assignment.
+Fork and clone this week's repository, and create a new `conda` environment for this week's assignment with `environment.yml` file. Then follow the instructions in `assignment/process_csv.ipynb` to complete the assignment.
