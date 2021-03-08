@@ -57,4 +57,8 @@ cbar.set_label()
 # to iterate through rows and columns of a dataframe:
 df.iterrows()  # rows
 df.iteritems() # columns
+
+# pytest assertions:
+assert a == b
+np.testing.assert_array_equal(a, b)     # for numpy arrays
 ```
