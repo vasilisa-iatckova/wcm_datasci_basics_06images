@@ -82,6 +82,13 @@ import glob     # for parsing globbing partterns, wild card expressions
 import natsort  # natural sorting commands in python
 from sklearn.preprocessing import minmaxscale  # normalizing between 0-1 function
 
+# Wildcard describing all csv files from relative paths:
+data_dir = '../data'    # Relatively where your data file is from your current working path, one folder level up has a folder called data
+data_files = '/*.csv'   # Data files are anythign ending in .csv inside the data folder
+os.path.abspath('data_dir') # translate relative path to absolute path
+data_pattern = os.path.abspath(data_dir) + data_files # In python you can add strings together to combine one string
+print(data_pattern) # check out the final pattern as output string
+
 # for creating a list of input file paths based on some given wildcard pattern:
 # isinstance checks variable types, in this case, returns True if it's a list
 if isinstance(pattern, list):
