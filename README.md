@@ -49,7 +49,8 @@ statisticalpower: tree
 └── statisticalpower
     ├── __init__.py
     ├── analysis
-    │   └── main.py
+    │   ├── main.py
+    │   ├── __init__.p
     ├── data
     │   ├── sample_data.csv
     ├── functions
