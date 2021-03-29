@@ -22,6 +22,7 @@ def get_files(path_pattern):
         
     return files
 
+
 # find_middle function (borrowed from you):
 def find_middle(in_column):
     """
@@ -69,3 +70,5 @@ def realign_data(in_data, align = "max"):
             # Write the alignment code here, replacing peak with the center that you found (mid_longest). 
     
         return d, shifts
+
+        
