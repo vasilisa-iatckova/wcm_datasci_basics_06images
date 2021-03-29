@@ -30,8 +30,8 @@ def find_middle(in_column):
     """
     # length of the input, divide by 2 to find the middle point
     middle = float(len(in_column))/2
-    # round down with `floor` in case your middle point isn't divisible by 2 (odd length)
-    return int(np.floor(middle))
+    # round up with `ceil` in case your middle point isn't divisible by 2 (odd length)
+    return int(np.ceil(middle))
 
 
 # realign data function (also borrowed from you):
@@ -66,9 +66,13 @@ def realign_data(in_data, align = "max"):
             # check shifted max location of input is same as reference peak
             assert np.argmax(d[column]) == peak_longest
             shifts[column] = pdiff
-        elif align == "center":
-            # Write the alignment code here, replacing peak with the center that you found (mid_longest). 
-    
-        return d, shifts
 
-        
+        elif align == "center":
+            mid = find_middle(in_data.index[in_data[column]!=0].values)
+            mdiff = mid_longest - mid
+            d[column] = in_data[column].shift(periods=mdiff, fill_value=0)
+            assert np.argmax(d[column]) == mid_longest
+            shifts[column] = mdiff
+
+    return d, shifts
+
