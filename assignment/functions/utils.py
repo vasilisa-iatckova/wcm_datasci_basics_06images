@@ -4,6 +4,9 @@
 import natsort  
 import os
 import glob
+import numpy as np
+import pandas as pd
+
 
 # get_files function:
 def get_files(path_pattern):
@@ -28,6 +31,7 @@ def find_middle(in_column):
     middle = float(len(in_column))/2
     # round down with `floor` in case your middle point isn't divisible by 2 (odd length)
     return int(np.floor(middle))
+
 
 # realign data function (also borrowed from you):
 def realign_data(in_data, align = "max"):
