@@ -71,7 +71,6 @@ def realign_data(in_data, align = "max"):
             mid = find_middle(in_data.index[in_data[column]!=0].values)
             mdiff = mid_longest - mid
             d[column] = in_data[column].shift(periods=mdiff, fill_value=0)
-            assert np.argmax(d[column]) == mid_longest
             shifts[column] = mdiff
 
     return d, shifts
